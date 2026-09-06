@@ -12,7 +12,7 @@ Welcome to my portfolio! I'm a new developer learning to code and building proje
 
 | Category | Tools |
 |----------|-------|
-| Languages | Python, HTML |
+| Languages | Python, HTML, CSS |
 | Tools | Git, GitHub, VS Code |
 
 ## 📂 Projects
@@ -20,6 +20,7 @@ Welcome to my portfolio! I'm a new developer learning to code and building proje
 | Project | Description | Link |
 |---------|-------------|------|
 | hello | Number guessing game — my first Python project | [projects/hello](./projects/hello) |
+| my-website | My first website — a personal about-me page built with HTML & CSS | [projects/my-website](./projects/my-website) |
 
 *(More projects coming soon!)*
 
