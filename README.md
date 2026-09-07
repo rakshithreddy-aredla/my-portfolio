@@ -1,35 +1,27 @@
 # Hi, I'm Rakshith Reddy Aredla 👋
 
-Welcome to my portfolio! I'm a new developer learning to code and building projects along the way.
+Welcome to my portfolio! Full-stack + AI developer from Hyderabad, building real projects end-to-end.
 
-## 🚀 About Me
+## 🚀 Featured Projects
 
-- 🌱 I'm currently learning the fundamentals of programming
-- 🎯 Goal: become a great developer, one project at a time
-- 📫 How to reach me: [GitHub](https://github.com/rakshithreddy-aredla)
+| Project | Description | Link |
+|---------|-------------|------|
+| [Arkaira](https://github.com/rakshithreddy-aredla/Arkaira) | Live flower e-commerce store — realtime stock, Razorpay payments, admin dashboard | Next.js + Supabase |
+| [GitGlance](https://github.com/rakshithreddy-aredla/GitGlance) | CLI that scores any GitHub profile 0-100 with exact fixes | Python |
+| [SpamScope](https://github.com/rakshithreddy-aredla/SpamScope) | Naive Bayes spam classifier implemented from scratch — no sklearn | Python |
+| [EnvGuard](https://github.com/rakshithreddy-aredla/EnvGuard) | Zero-dependency typed env validation for Node.js | TypeScript |
+| hello | Number guessing game — my first Python project | [projects/hello](./projects/hello) |
+| my-website | My first website — a personal about-me page | [projects/my-website](./projects/my-website) |
 
 ## 🛠️ Skills & Tools
 
 | Category | Tools |
 |----------|-------|
-| Languages | Python, HTML, CSS |
-| Tools | Git, GitHub, VS Code |
+| Languages | Python, TypeScript, JavaScript, HTML, CSS |
+| Frameworks | Next.js, Node.js |
+| Data & Infra | Supabase (Postgres, Realtime, Auth), Razorpay API |
+| Tools | Git, GitHub, VS Code, Vercel, npm |
 
-## 📂 Projects
+## 📫 Reach Me
 
-| Project | Description | Link |
-|---------|-------------|------|
-| hello | Number guessing game — my first Python project | [projects/hello](./projects/hello) |
-| my-website | My first website — a personal about-me page built with HTML & CSS | [projects/my-website](./projects/my-website) |
-
-*(More projects coming soon!)*
-
-## 📈 What I'm Learning
-
-- [ ] Python fundamentals
-- [ ] Git & GitHub workflows
-- [ ] Building real projects
-
----
-
-⭐ Feel free to explore my repositories — feedback is welcome!
+Find me on [GitHub](https://github.com/rakshithreddy-aredla) — always open to hackathon teams and collaborations.
