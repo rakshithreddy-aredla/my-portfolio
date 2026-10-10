@@ -6,16 +6,19 @@ A premium **dark** portfolio with a custom interactive 3D avatar and a matching 
 
 ## ✨ Highlights
 
-- **Interactive 3D avatar** (Three.js) — waves and moves as you scroll, and its eyes track your cursor.
-- **Premium dark design** — editorial serif (Fraunces) + clean sans (Instrument Sans) + mono accents, near-black warm palette with an ember/orange accent, glass surfaces, glowing atmosphere and film-grain noise.
-- **Advanced motion** — GSAP + ScrollTrigger: preloader, scroll progress bar, custom cursor, reveals, parallax, seamless marquee, magnetic buttons, animated skills cloud, timeline reveal.
-- **Resume page** — a matching dark `resume.html` (linked in nav) with a downloadable PDF.
+- **3D model designed in Blender** (`blender/build_avatar.py` → `assets/avatar.glb`) — a stylized character with your face photo as the head texture, loaded via Three.js GLTFLoader.
+- **Interactive 3D avatar** — waves and moves as you scroll, eyes track your cursor, blinks, whole body leans toward the cursor, click to make it wave.
+- **Your face front and center** — a large interactive hero portrait (tilt, glare, sparkles, scroll parallax) plus the About-section photo.
+- **Premium dark design** — editorial serif (Fraunces) + clean sans + mono accents, near-black warm palette with an electric-violet accent, glass surfaces, glowing atmosphere and film-grain noise.
+- **Advanced motion** — GSAP + ScrollTrigger: preloader, scroll progress bar, custom cursor, reveals, parallax, marquee, magnetic buttons, animated skills cloud, timeline reveal.
+- **Resume page** — matching dark `resume.html` with a downloadable PDF.
 - **Real content** — projects, skills, stats and journey pulled straight from GitHub.
 
 ## 🛠️ Stack
 
 - Plain HTML / CSS / JS — zero build step, runs on GitHub Pages
-- [Three.js](https://threejs.org) for the 3D avatar
+- [Blender](https://www.blender.org) (headless) for 3D model design + glTF export
+- [Three.js](https://threejs.org) + GLTFLoader for the 3D avatar
 - [GSAP](https://greensock.com/gsap) + ScrollTrigger for animation
 - Google Fonts: Fraunces + Instrument Sans + Space Mono
 
@@ -26,8 +29,11 @@ index.html        main portfolio page
 resume.html       dark resume page
 styles.css        design system + layout
 js/data.js        real project/skill/stat/journey content + DOM rendering
-js/avatar.js      Three.js 3D avatar (scroll motion + cursor eye-tracking)
-js/animations.js  GSAP motion layer (cursor, reveals, marquee, parallax, cloud)
+js/avatar.js      Three.js 3D avatar (GLB + procedural fallback, scroll + eye-tracking)
+js/portrait.js    interactive hero portrait (tilt, glare, sparks, parallax)
+js/animations.js  GSAP motion layer
+blender/          Blender headless build script (design source)
+assets/avatar.glb exported 3D model
 ```
 
 ## 🚀 Run locally
