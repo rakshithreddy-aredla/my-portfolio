@@ -1,34 +1,162 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rakshith Reddy Aredla — Resume</title>
+<meta name="description" content="Resume of Rakshith Reddy Aredla — Full-Stack + AI Developer.">
+<link rel="icon" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Mono:wght@400;700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0908; --bg-2: #12100E; --surface: #171412;
+    --ink: #F2ECE4; --ink-soft: #B9B0A5; --muted: #7A7167;
+    --line: rgba(242,236,228,0.09); --line-strong: rgba(242,236,228,0.16);
+    --accent: #E86A2C; --ember: #FF8A4C; --gold: #E8B44A; --glow: rgba(232,106,44,0.28);
+    --font-display: "Fraunces", Georgia, serif; --font-body: "Instrument Sans", system-ui, sans-serif; --font-mono: "Space Mono", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .page { width: min(880px, 92vw); margin: 0 auto; padding: 56px 0 80px; }
+  .back { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 40px; transition: color 0.3s; }
+  .back:hover { color: var(--accent); }
+  .resume-header { border: 1px solid var(--line-strong); border-radius: 24px; padding: 40px; background: var(--surface); box-shadow: 0 12px 40px rgba(0,0,0,0.4); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+  .resume-header h1 { font-family: var(--font-display); font-weight: 350; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -0.02em; }
+  .resume-header h1 em { font-style: italic; background: linear-gradient(120deg, var(--accent), var(--ember)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .resume-header .role { color: var(--ink-soft); margin-top: 10px; font-size: 1.05rem; }
+  .resume-header .meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .download { display: inline-block; margin-top: 18px; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 999px; background: linear-gradient(120deg, var(--accent), #C2572A); color: #fff; box-shadow: 0 8px 28px var(--glow); }
+  .download:hover { box-shadow: 0 12px 40px var(--glow); }
+  .section { margin-top: 44px; }
+  .section h2 { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .section h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .summary { color: var(--ink-soft); font-size: 1.05rem; max-width: 70ch; }
+  .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ember); border: 1px solid var(--line); background: rgba(232,106,44,0.06); padding: 7px 14px; border-radius: 999px; }
+  .entry { border-left: 2px solid var(--line-strong); padding-left: 22px; margin-bottom: 26px; position: relative; }
+  .entry::before { content: ""; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--glow); }
+  .entry h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; }
+  .entry .when { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ember); letter-spacing: 0.12em; text-transform: uppercase; }
+  .entry p { color: var(--ink-soft); font-size: 0.98rem; margin-top: 6px; max-width: 65ch; }
+  .entry ul { margin-top: 8px; padding-left: 18px; color: var(--ink-soft); font-size: 0.95rem; }
+  .entry li { margin-bottom: 4px; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+  .links a:hover { color: var(--accent); }
+  @media print {
+    body { background: #fff; color: #000; }
+    .back, .download { display: none; }
+    .resume-header { border: 1px solid #ddd; box-shadow: none; background: #fff; }
+    .skill { color: #C2572A; border-color: #ddd; background: #fafafa; }
+    .entry::before { background: #C2572A; box-shadow: none; }
+    .section h2 { color: #C2572A; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a href="index.html" class="back">← Back to portfolio</a>
 
-    <title>Rakshith Reddy Aredla — Résumé</title>
-    <meta name="theme-color" content="#05060a" />
+  <div class="resume-header">
+    <div>
+      <h1>Rakshith Reddy <em>Aredla</em></h1>
+      <p class="role">Full-Stack + AI Developer</p>
+      <div class="meta">
+        <span>📍 Hyderabad, India</span>
+        <span>💬 Full-stack · AI · RAG · Agent memory</span>
+      </div>
+      <a class="download" href="Rakshith-Reddy-Aredla-Resume.pdf" target="_blank" rel="noopener">Download PDF ↗</a>
+    </div>
+    <div class="links">
+      <a href="https://github.com/rakshithreddy-aredla" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/aredla-rakshith/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="mailto:rakshithreddy.aredla@gmail.com">Email ↗</a>
+    </div>
+  </div>
 
-    <link rel="icon" type="image/svg+xml" href="/my-portfolio/favicon.svg" />
+  <div class="section">
+    <h2>Summary</h2>
+    <p class="summary">Full-stack + AI developer in Hyderabad. Mostly TypeScript and Python — Next.js and Supabase on the front, FastAPI when there's a model involved. I build small tools that are small enough to finish and real enough to use, shipping everything end-to-end. Currently exploring retrieval and the parts of agent memory that turn out to be harder than they sound.</p>
+  </div>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+  <div class="section">
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <span class="skill">TypeScript</span><span class="skill">JavaScript</span><span class="skill">Python</span>
+      <span class="skill">Next.js</span><span class="skill">Node.js</span><span class="skill">FastAPI</span>
+      <span class="skill">Flask</span><span class="skill">PyTorch</span><span class="skill">React Native</span>
+      <span class="skill">ML Kit</span><span class="skill">Supabase</span><span class="skill">Postgres</span>
+      <span class="skill">Razorpay API</span><span class="skill">Streamlit</span><span class="skill">Tailwind CSS</span>
+      <span class="skill">Git</span><span class="skill">GitHub Actions</span><span class="skill">Vercel</span>
+    </div>
+  </div>
 
-    <meta name="description" content="I build things end-to-end — e-commerce with live inventory and real payments, ML models with measured accuracy, and CLI tools that make other developers faster." />
-    <meta name="author" content="Rakshith Reddy Aredla" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:title" content="Rakshith Reddy Aredla — Full-Stack Developer" />
-    <meta property="og:description" content="I build things end-to-end — e-commerce with live inventory and real payments, ML models with measured accuracy, and CLI tools that make other developers faster." />
-    <meta property="og:image" content="https://rakshithreddy-aredla.github.io/my-portfolio/share.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","url":"https://rakshithreddy-aredla.github.io/my-portfolio","name":"Rakshith Reddy Aredla","image":"https://rakshithreddy-aredla.github.io/my-portfolio./rakshith.jpg","jobTitle":"Full-Stack Developer","email":"mailto:rakshithreddyaredla@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Hyderabad","addressCountry":"IN"},"sameAs":["https://github.com/rakshithreddy-aredla","https://www.linkedin.com/in/aredla-rakshith"],"knowsAbout":["TypeScript","React","Next.js","Python","PyTorch","Machine Learning","Retrieval-Augmented Generation","Supabase","PostgreSQL"]}</script>
-    <script type="module" crossorigin src="/my-portfolio/assets/resume-D21U2v1a.js"></script>
-    <link rel="modulepreload" crossorigin href="/my-portfolio/assets/jsx-runtime-byfeb5Er.js">
-    <link rel="stylesheet" crossorigin href="/my-portfolio/assets/jsx-runtime-Oi_NOHn3.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+  <div class="section">
+    <h2>Selected Projects</h2>
+    <div class="entry">
+      <span class="when">Full-stack · Live</span>
+      <h3>Arkaira — Online Flower Shop</h3>
+      <p>Realtime stock that decrements the moment someone pays, Razorpay checkout, admin dashboard. Next.js + Supabase + TypeScript.</p>
+    </div>
+    <div class="entry">
+      <span class="when">AI · On-device</span>
+      <h3>Netra — Driver Drowsiness & Distraction Detection</h3>
+      <p>Real-time AI safety monitoring running on-device with React Native + ML Kit — no server required.</p>
+    </div>
+    <div class="entry">
+      <span class="when">AI · Agent memory</span>
+      <h3>RecallDesk — Support Copilot That Remembers</h3>
+      <p>Customer support agent with persistent memory — recalls prior tickets and what actually fixed them.</p>
+    </div>
+    <div class="entry">
+      <span class="when">AI · Health</span>
+      <h3>Anchor — Caregiver Memory Navigator</h3>
+      <p>Memory-powered navigator for family caregivers — meds, labs, doctor's instructions in one place. FastAPI + Streamlit + LLM.</p>
+    </div>
+    <div class="entry">
+      <span class="when">AI · RAG</span>
+      <h3>CascadeGuard — RAG Pipeline Monitoring</h3>
+      <p>Implementation of a published paper — observability for retrieval pipelines, tracing every stage to catch silent failures.</p>
+    </div>
+    <div class="entry">
+      <span class="when">Developer tools</span>
+      <h3>GitGlance · EnvGuard · SpamScope</h3>
+      <p>GitHub profile scorer CLI, fail-fast typed env validation for Node, and a Naive Bayes spam classifier written by hand — no sklearn, no numpy.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Experience & Involvement</h2>
+    <div class="entry">
+      <span class="when">2026</span>
+      <h3>HackWithHyderabad 3.0 — Participant</h3>
+      <p>Built and shipped under hackathon pressure — designed, implemented and presented a working product within the event.</p>
+    </div>
+    <div class="entry">
+      <span class="when">2026</span>
+      <h3>AI/ML Coursework</h3>
+      <p>Completed an AI/ML course covering deep learning, retrieval-augmented generation and applied ML — applied directly in shipped projects.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Learning Path</h2>
+    <div class="entry">
+      <span class="when">The beginning</span>
+      <h3>First website · First Python</h3>
+      <p>My first HTML/CSS page and the classic number guessing game. Where it all started.</p>
+    </div>
+    <div class="entry">
+      <span class="when">Foundations</span>
+      <h3>ML Exercises</h3>
+      <p>CNN on MNIST (~99%), RAG chatbot, house-price regression (R² ≈ 0.80), movie recommender, iris classifier.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:40px;text-align:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);">Built with real code, honest commits — © <span id="year">2026</span></p>
+</div>
+<script>document.getElementById("year").textContent = String(new Date().getFullYear());</script>
+</body>
 </html>

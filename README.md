@@ -1,68 +1,46 @@
-# rakshithreddy-aredla.github.io/my-portfolio
+# Rakshith Reddy Aredla — Portfolio
 
-Personal portfolio and résumé for **Rakshith Reddy Aredla** — Full-Stack Developer,
-AI/ML Engineer, RAG researcher.
+A premium **dark** portfolio with a custom interactive 3D avatar and a matching resume page.
 
-- Live site: <https://rakshithreddy-aredla.github.io/my-portfolio/>
-- Résumé (HTML): <https://rakshithreddy-aredla.github.io/my-portfolio/resume.html>
-- Résumé (PDF): [`Rakshith-Reddy-Aredla-Resume.pdf`](./Rakshith-Reddy-Aredla-Resume.pdf)
-- GitHub: <https://github.com/rakshithreddy-aredla>
-- Email: rakshithreddyaredla@gmail.com · LinkedIn: <https://www.linkedin.com/in/aredla-rakshith>
+> **Live:** https://rakshithreddy-aredla.github.io/my-portfolio/
 
-## What is in this repository
+## ✨ Highlights
 
-This branch is the **published build output** that GitHub Pages serves directly
-(`build_type: legacy`, source `main` at `/`). It is a React + TypeScript + Vite app
-with two entry points in one bundle:
+- **Interactive 3D avatar** (Three.js) — waves and moves as you scroll, and its eyes track your cursor.
+- **Premium dark design** — editorial serif (Fraunces) + clean sans (Instrument Sans) + mono accents, near-black warm palette with an ember/orange accent, glass surfaces, glowing atmosphere and film-grain noise.
+- **Advanced motion** — GSAP + ScrollTrigger: preloader, scroll progress bar, custom cursor, reveals, parallax, seamless marquee, magnetic buttons, animated skills cloud, timeline reveal.
+- **Resume page** — a matching dark `resume.html` (linked in nav) with a downloadable PDF.
+- **Real content** — projects, skills, stats and journey pulled straight from GitHub.
 
-| Path | What it is |
-| --- | --- |
-| `index.html` | The portfolio page |
-| `resume.html` | The printable résumé |
-| `Rakshith-Reddy-Aredla-Resume.pdf` | Headless-printed export of the résumé |
-| `assets/` | Hashed JS/CSS bundles |
-| `.nojekyll` | Stops GitHub Pages running Jekyll, so underscore paths survive |
+## 🛠️ Stack
 
-## Single source of truth
+- Plain HTML / CSS / JS — zero build step, runs on GitHub Pages
+- [Three.js](https://threejs.org) for the 3D avatar
+- [GSAP](https://greensock.com/gsap) + ScrollTrigger for animation
+- Google Fonts: Fraunces + Instrument Sans + Space Mono
 
-The portfolio and the résumé are **two entry points of the same app**, and both
-render from one data file: **`src/data/profile.ts`**.
+## 📁 Structure
 
-Projects, skills, stats, education, hackathon results, contact details and résumé
-content all live in that file. Editing it updates the site and the résumé together —
-there is no second copy of the content to keep in sync. Achievements are phrased
-separately for each surface on purpose, so if you change a fact in one list, change
-it in the other.
-
-To change content, edit `src/data/profile.ts` in the source project, then rebuild —
-do not hand-edit the files in this repository, they are overwritten on every deploy.
-
-## Rebuilding and redeploying
-
-```bash
-# root build (local preview)
-npm run lint && npm run build
-
-# GitHub Pages sub-path build
-BASE_PATH=/my-portfolio/ SITE_URL=https://rakshithreddy-aredla.github.io npm run build
+```
+index.html        main portfolio page
+resume.html       dark resume page
+styles.css        design system + layout
+js/data.js        real project/skill/stat/journey content + DOM rendering
+js/avatar.js      Three.js 3D avatar (scroll motion + cursor eye-tracking)
+js/animations.js  GSAP motion layer (cursor, reveals, marquee, parallax, cloud)
 ```
 
-Then copy the contents of `dist/` over the root of `main` and push. The résumé PDF
-is regenerated from `resume.html` over HTTP (never over `file://` — the app emits
-root-absolute asset URLs, so a `file://` print produces a blank page):
+## 🚀 Run locally
+
+Open `index.html` directly in a browser, or:
 
 ```bash
-npx vite preview --port 4317 --strictPort
-# then headless-print http://localhost:4317/resume.html
+npx serve .
 ```
 
-## PENDING — Certifications
+## 📫 Contact
 
-The owner has completed an AI/ML course but has not supplied the course name or the
-issuing platform, so `certifications` in `src/data/profile.ts` is an empty array and
-the résumé omits the section rather than printing a placeholder. Adding one
-`{ name, issuer, year? }` object makes the section reappear automatically.
+- [GitHub @rakshithreddy-aredla](https://github.com/rakshithreddy-aredla)
+- [LinkedIn](https://www.linkedin.com/in/aredla-rakshith/)
 
-## License
-
-See [`LICENSE`](./LICENSE).
+Built with real code, honest commits.
