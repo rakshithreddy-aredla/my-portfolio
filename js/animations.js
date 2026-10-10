@@ -191,7 +191,7 @@
         scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true }
       });
     }
-    var avatarStage = document.querySelector(".hero__avatar");
+    var avatarStage = document.querySelector(".hero__portrait");
     if (avatarStage) {
       gsap.to(avatarStage, {
         y: 60, rotate: -2, ease: "none",

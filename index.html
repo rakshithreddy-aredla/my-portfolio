@@ -72,11 +72,13 @@
         <span class="badge">5 AI & full-stack builds</span>
       </div>
     </div>
-    <div class="hero__avatar" id="avatar-stage">
-      <canvas id="avatar-canvas" aria-label="3D interactive avatar"></canvas>
-      <div class="hero__avatar-glow"></div>
-      <div class="hero__avatar-ring" id="avatar-ring"></div>
-      <p class="hero__avatar-caption" id="avatar-caption">👋 hi, I'm Rakshith — scroll to see me move</p>
+    <div class="hero__portrait" id="portrait">
+      <div class="hero__portrait-ring" aria-hidden="true"></div>
+      <div class="hero__portrait-frame">
+        <img class="hero__portrait-img" src="rakshith.jpg" alt="Rakshith Reddy Aredla" draggable="false">
+        <div class="hero__portrait-glare" aria-hidden="true"></div>
+      </div>
+      <p class="hero__portrait-caption">Rakshith Reddy — Hyderabad</p>
     </div>
     <div class="hero__scroll-hint" data-cursor="hover">
       <span class="hero__scroll-line"></span>
@@ -114,9 +116,14 @@
           </div>
         </div>
         <div class="about__visual reveal">
+          <div class="about__scene" id="avatar-stage">
+            <canvas id="avatar-canvas" aria-label="3D interactive avatar"></canvas>
+            <p class="about__scene-caption" id="avatar-caption">👋 that's me — my eyes follow your cursor</p>
+          </div>
           <div class="about__photo">
             <img src="rakshith.jpg" alt="Rakshith Reddy Aredla" loading="lazy">
             <div class="about__photo-ring"></div>
+            <span class="about__photo-tag">That's me — for real</span>
           </div>
           <div class="about__stats">
             <div class="stat"><b id="stat-repos">18</b><span>public repos</span></div>
@@ -189,6 +196,7 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script src="js/data.js"></script>
 <script src="js/avatar.js"></script>
+<script src="js/portrait.js"></script>
 <script src="js/animations.js"></script>
 </body>
 </html>

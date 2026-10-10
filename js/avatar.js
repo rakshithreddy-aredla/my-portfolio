@@ -184,6 +184,15 @@
     skull.castShadow = true;
     head.add(skull);
 
+    // map the real face photo onto the 3D head
+    try {
+      new THREE.TextureLoader().load("rakshith.jpg", function (tex) {
+        skull.material.map = tex;
+        skull.material.color.set(0xffffff);
+        skull.material.needsUpdate = true;
+      });
+    } catch (e) { /* texture optional — fall back to skin color */ }
+
     // hair cap
     var hairCap = new THREE.Mesh(
       new THREE.SphereGeometry(0.68, 48, 24, 0, Math.PI * 2, 0, Math.PI * 0.56),
