@@ -1,203 +1,197 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rakshith Reddy Aredla — Full-Stack + AI Developer</title>
-<meta name="description" content="Portfolio of Rakshith Reddy Aredla — full-stack and AI developer from Hyderabad. I build small tools that actually run.">
-<meta property="og:title" content="Rakshith Reddy Aredla — Full-Stack + AI Developer">
-<meta property="og:description" content="Full-stack + AI developer in Hyderabad. Interactive 3D portfolio — scroll, the avatar moves, the eyes follow your cursor.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://rakshithreddy-aredla.github.io/my-portfolio/">
-<meta property="og:image" content="share.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Mono:wght@400;700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rakshith Reddy Aredla — Full-Stack + AI Developer</title>
+  <meta name="description" content="Rakshith Reddy Aredla — Full-Stack + AI Developer. Building products that ship: realtime e-commerce, on-device AI, agent memory, RAG systems." />
+  <meta property="og:title" content="Rakshith Reddy Aredla — Full-Stack + AI Developer" />
+  <meta property="og:description" content="Building products that ship: realtime e-commerce, on-device AI, agent memory, RAG systems." />
+  <meta property="og:image" content="share.png" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<!-- Preloader -->
-<div id="preloader" class="preloader">
-  <div class="preloader__inner">
-    <span class="preloader__name">Rakshith</span>
-    <div class="preloader__bar"><span class="preloader__bar-fill"></span></div>
-    <span class="preloader__hint">Initializing neural pathways…</span>
+  <!-- ============ ATMOSPHERE ============ -->
+  <div class="atmosphere" aria-hidden="true">
+    <div class="atmosphere__orb orb--1"></div>
+    <div class="atmosphere__orb orb--2"></div>
+    <div class="atmosphere__orb orb--3"></div>
+    <div class="atmosphere__grid"></div>
+    <canvas class="noise-canvas"></canvas>
   </div>
-</div>
 
-<!-- Background atmosphere -->
-<div class="atmosphere" aria-hidden="true">
-  <div class="atmosphere__orb orb--1"></div>
-  <div class="atmosphere__orb orb--2"></div>
-  <div class="atmosphere__orb orb--3"></div>
-  <div class="atmosphere__grid"></div>
-  <canvas id="noise-canvas" class="noise-canvas"></canvas>
-</div>
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <span class="preloader__name">Rakshith Reddy Aredla</span>
+      <div class="preloader__bar"><span class="preloader__bar-fill"></span></div>
+      <span class="preloader__hint">portfolio — loading</span>
+    </div>
+  </div>
 
-<!-- Custom cursor -->
-<div class="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"></div>
+  <!-- ============ CURSOR + PROGRESS ============ -->
+  <span class="cursor-dot" id="cursor-dot" aria-hidden="true"></span>
+  <span class="cursor-ring" id="cursor-ring" aria-hidden="true"></span>
+  <div id="scroll-progress" aria-hidden="true"></div>
 
-<!-- Nav -->
-<header class="nav" id="nav">
-  <a href="#hero" class="nav__logo" data-cursor="hover">RRA<span class="nav__logo-dot">.</span></a>
-  <nav class="nav__links">
-    <a href="#work" data-cursor="hover">Work</a>
-    <a href="#about" data-cursor="hover">About</a>
-    <a href="#skills" data-cursor="hover">Stack</a>
-    <a href="#journey" data-cursor="hover">Journey</a>
-    <a href="resume.html" data-cursor="hover">Resume</a>
+  <!-- ============ NAV ============ -->
+  <nav class="nav" aria-label="Main">
+    <a class="nav__logo" href="#home" data-cursor="hover">Rakshith<span class="nav__logo-dot">.</span></a>
+    <div class="nav__links">
+      <a href="#about" data-cursor="hover">About</a>
+      <a href="#projects" data-cursor="hover">Work</a>
+      <a href="#skills" data-cursor="hover">Skills</a>
+      <a href="#journey" data-cursor="hover">Journey</a>
+      <a href="#contact" data-cursor="hover">Contact</a>
+      <a class="nav__cta" href="resume.html" data-cursor="hover">Resume ↗</a>
+    </div>
   </nav>
-  <a href="#contact" class="nav__cta" data-cursor="hover">Let's talk ↗</a>
-</header>
 
-<main>
+  <!-- ============ MINI-ME RAIL (desktop) ============ -->
+  <aside class="mini-me-rail" aria-hidden="true">
+    <div class="mini-me-progress"><span class="mini-me-progress__fill"></span></div>
+    <canvas id="mini-me-canvas" width="110" height="260"></canvas>
+    <div class="mini-me-bubble" id="mini-me-bubble">Hey! I'm mini Rakshith</div>
+  </aside>
 
-  <!-- ============ HERO ============ -->
-  <section id="hero" class="hero">
-    <div class="hero__content">
-      <p class="hero__eyebrow reveal">Full-Stack + AI Developer — Hyderabad</p>
-      <h1 class="hero__title reveal">Rakshith Reddy <em>Aredla</em></h1>
-      <p class="hero__tagline reveal">I build things that are small enough to finish and real enough to use.</p>
-      <div class="hero__ctas reveal">
-        <a href="#work" class="btn btn--solid" data-cursor="hover">See my work</a>
-        <a href="#contact" class="btn btn--ghost" data-cursor="hover">Get in touch</a>
-      </div>
-      <div class="hero__badges reveal">
-        <span class="badge">18 public repos</span>
-        <span class="badge">99% CNN accuracy</span>
-        <span class="badge">5 AI & full-stack builds</span>
-      </div>
-    </div>
-    <div class="hero__portrait" id="portrait">
-      <div class="hero__portrait-ring" aria-hidden="true"></div>
-      <div class="hero__portrait-frame">
-        <img class="hero__portrait-img" src="rakshith.jpg" alt="Rakshith Reddy Aredla" draggable="false">
-        <div class="hero__portrait-glare" aria-hidden="true"></div>
-      </div>
-      <p class="hero__portrait-caption">Rakshith Reddy — Hyderabad</p>
-    </div>
-    <div class="hero__scroll-hint" data-cursor="hover">
-      <span class="hero__scroll-line"></span>
-      <span>Scroll</span>
-    </div>
-    <div class="hero__progress" id="scroll-progress" aria-hidden="true"><span></span></div>
-  </section>
-
-  <!-- ============ MARQUEE ============ -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track" id="marquee-track">
-      <span>Full-Stack</span><i>✦</i>
-      <span>AI Developer</span><i>✦</i>
-      <span>TypeScript</span><i>✦</i>
-      <span>Python</span><i>✦</i>
-      <span>Next.js</span><i>✦</i>
-      <span>Supabase</span><i>✦</i>
-      <span>RAG</span><i>✦</i>
-    </div>
-  </div>
-
-  <!-- ============ ABOUT ============ -->
-  <section id="about" class="about section">
-    <div class="container">
-      <p class="section__index">01 — About</p>
-      <h2 class="section__title">Small enough to finish. <em>Real</em> enough to use.</h2>
-      <div class="about__grid">
-        <div class="about__text">
-          <p class="reveal">I'm a full-stack + AI developer in Hyderabad. Mostly TypeScript and Python — Next.js and Supabase on the front, FastAPI when there's a model involved. I build small tools that actually run.</p>
-          <p class="reveal">Lately I'm interested in retrieval, and the parts of agent memory that turn out to be harder than they sound.</p>
-          <div class="about__meta reveal">
-            <span><b>Based in</b> Hyderabad, IN</span>
-            <span><b>Open to</b> Hackathons · Collabs</span>
-            <span><b>Currently</b> Exploring RAG observability</span>
-          </div>
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home" aria-label="Introduction">
+      <div class="hero__content">
+        <p class="hero__eyebrow reveal">Full-Stack + AI Developer — Hyderabad, India</p>
+        <h1 class="hero__title reveal" data-delay="0.08">Rakshith Reddy<em>Aredla</em></h1>
+        <p class="hero__tagline reveal" data-delay="0.16">I build products that ship — realtime e-commerce, on-device AI, agent memory and RAG systems. Demos over decks, always.</p>
+        <div class="hero__ctas reveal" data-delay="0.24">
+          <a class="btn btn--solid" href="#projects" data-cursor="hover" data-magnetic>View my work</a>
+          <a class="btn btn--ghost" href="resume.html" data-cursor="hover" data-magnetic>Resume ↗</a>
+          <a class="btn btn--ghost" href="https://github.com/rakshithreddy-aredla" target="_blank" rel="noopener" data-cursor="hover" data-magnetic>GitHub ↗</a>
         </div>
-        <div class="about__visual reveal">
-          <div class="about__scene" id="avatar-stage">
-            <canvas id="avatar-canvas" aria-label="3D interactive avatar"></canvas>
-            <p class="about__scene-caption" id="avatar-caption">👋 that's me — my eyes follow your cursor</p>
+        <div class="hero__badges reveal" data-delay="0.3">
+          <span class="badge">18 repositories</span>
+          <span class="badge">99% CNN accuracy</span>
+          <span class="badge">live deployments</span>
+        </div>
+      </div>
+      <div class="hero__portrait" id="portrait">
+        <div class="hero__portrait-ring" aria-hidden="true"></div>
+        <div class="hero__portrait-frame" data-cursor="hover">
+          <img class="hero__portrait-img" src="assets/me.jpg" alt="Anime-style portrait of Rakshith Reddy Aredla" width="960" height="1280" />
+          <span class="hero__portrait-glare" aria-hidden="true"></span>
+        </div>
+        <span class="hero__portrait-caption">that's me — anime edition</span>
+      </div>
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <span>scroll</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Full-Stack</span><i>✦</i><span>AI Engineering</span><i>✦</i><span>On-Device ML</span><i>✦</i><span>Agent Memory</span><i>✦</i><span>RAG Systems</span><i>✦</i><span>Shipping &gt; Talking</span><i>✦</i>
+        <span>Full-Stack</span><i>✦</i><span>AI Engineering</span><i>✦</i><span>On-Device ML</span><i>✦</i><span>Agent Memory</span><i>✦</i><span>RAG Systems</span><i>✦</i><span>Shipping &gt; Talking</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about" aria-label="About me">
+      <div class="container">
+        <p class="section__index reveal">01 — About</p>
+        <h2 class="section__title reveal">Small bio, <em>real work</em>.</h2>
+        <div class="about__grid">
+          <div class="about__text">
+            <p class="reveal">I'm Rakshith — a developer from Hyderabad who learns by building. Not toy apps: real products with live users, real payments, real models running on-device.</p>
+            <p class="reveal" data-delay="0.08">My work spans the stack — Next.js storefronts with realtime stock, PyTorch CNNs at ~99% accuracy, hand-written Naive Bayes classifiers with zero dependencies, and LLM systems with agent memory and retrieval grounding.</p>
+            <p class="reveal" data-delay="0.16">I care about the boring parts: state that can't corrupt, latency that doesn't spike, pipelines you can trace when they fail. That's what turns demos into products.</p>
+            <div class="about__meta reveal" data-delay="0.22">
+              <span><b>18</b>public repositories</span>
+              <span><b>3</b>live deployments</span>
+              <span><b>∞</b>curiosity</span>
+            </div>
           </div>
-          <div class="about__photo">
-            <img src="rakshith.jpg" alt="Rakshith Reddy Aredla" loading="lazy">
-            <div class="about__photo-ring"></div>
-            <span class="about__photo-tag">That's me — for real</span>
-          </div>
-          <div class="about__stats">
-            <div class="stat"><b id="stat-repos">18</b><span>public repos</span></div>
-            <div class="stat"><b id="stat-models">99%</b><span>CNN test accuracy</span></div>
-            <div class="stat"><b id="stat-stack">5</b><span>AI & full-stack builds</span></div>
+          <div class="about__visual">
+            <div class="about__photo reveal">
+              <div class="about__photo-ring" aria-hidden="true"></div>
+              <img src="assets/me-2.jpg" alt="Rakshith Reddy Aredla — photo" loading="lazy" width="960" height="1280" />
+              <span class="about__photo-tag">that's me — for real</span>
+            </div>
+            <div class="about__stats">
+              <div class="stat reveal"><b>18</b><span>public repos</span></div>
+              <div class="stat reveal" data-delay="0.06"><b>99%</b><span>digit CNN accuracy</span></div>
+              <div class="stat reveal" data-delay="0.12"><b>6</b><span>flagship builds</span></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ WORK / PROJECTS ============ -->
-  <section id="work" class="work section">
-    <div class="container">
-      <p class="section__index">02 — Selected Work</p>
-      <h2 class="section__title">Projects that <em>ship</em>.</h2>
-
-      <div class="work__featured" id="featured-projects"><!-- injected by data.js --></div>
-
-      <p class="section__index work__index">02.b — More experiments</p>
-      <div class="work__grid" id="more-projects"><!-- injected by data.js --></div>
-    </div>
-  </section>
-
-  <!-- ============ SKILLS ============ -->
-  <section id="skills" class="skills-section section">
-    <div class="container">
-      <p class="section__index">03 — Stack</p>
-      <h2 class="section__title">Tools I <em>actually</em> use.</h2>
-      <div class="skills__wrap" id="skills-list"><!-- injected by data.js --></div>
-      <div class="skills__cloud" id="skills-cloud" aria-hidden="true"><!-- generated by animations.js --></div>
-    </div>
-  </section>
-
-  <!-- ============ JOURNEY / TIMELINE ============ -->
-  <section id="journey" class="journey section">
-    <div class="container">
-      <p class="section__index">04 — Journey</p>
-      <h2 class="section__title">How I got <em>here</em>.</h2>
-      <div class="timeline" id="timeline"><!-- injected by data.js --></div>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section id="contact" class="contact section">
-    <div class="container">
-      <p class="section__index">05 — Contact</p>
-      <h2 class="contact__title reveal">Let's build something <em>useful</em>.</h2>
-      <p class="contact__sub reveal">Always open to hackathon teams, collaborations and interesting problems.</p>
-      <div class="contact__links reveal">
-        <a class="contact__btn" href="https://github.com/rakshithreddy-aredla" target="_blank" rel="noopener" data-cursor="hover">GitHub ↗</a>
-        <a class="contact__btn" href="https://www.linkedin.com/in/aredla-rakshith/" target="_blank" rel="noopener" data-cursor="hover">LinkedIn ↗</a>
-        <a class="contact__btn" href="mailto:rakshithreddy.aredla@gmail.com" data-cursor="hover">Email ↗</a>
-        <a class="contact__btn" href="resume.html" data-cursor="hover">Resume ↗</a>
+    <!-- ============ WORK ============ -->
+    <section class="section" id="projects" aria-label="Projects">
+      <div class="container">
+        <p class="section__index reveal">02 — Work</p>
+        <h2 class="section__title reveal">Selected <em>builds</em>.</h2>
+        <div id="featured-projects" class="work__featured"></div>
+        <div class="work__index">
+          <h3 class="section__title reveal">More <em>builds</em>.</h3>
+          <div id="more-projects" class="work__grid"></div>
+        </div>
       </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section skills-section" id="skills" aria-label="Skills">
+      <div class="container">
+        <p class="section__index reveal">03 — Skills</p>
+        <h2 class="section__title reveal">The <em>stack</em>.</h2>
+        <div id="skills-list" class="skills__wrap"></div>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEY ============ -->
+    <section class="section journey" id="journey" aria-label="Journey">
+      <div class="container">
+        <p class="section__index reveal">04 — Journey</p>
+        <h2 class="section__title reveal">How I got <em>here</em>.</h2>
+        <div id="timeline" class="timeline"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact" aria-label="Contact">
+      <div class="container">
+        <p class="section__index reveal">05 — Contact</p>
+        <h2 class="contact__title reveal">Let's build<br /><em>something.</em></h2>
+        <p class="contact__sub reveal" data-delay="0.08">Open to full-time roles, internships and hackathon teams. The fastest way to reach me is email.</p>
+        <div class="contact__links reveal" data-delay="0.16">
+          <a class="contact__btn" href="mailto:rakshithreddy.aredla@gmail.com" data-cursor="hover" data-magnetic>Email ↗</a>
+          <a class="contact__btn" href="https://www.linkedin.com/in/aredla-rakshith/" target="_blank" rel="noopener" data-cursor="hover" data-magnetic>LinkedIn ↗</a>
+          <a class="contact__btn" href="https://github.com/rakshithreddy-aredla" target="_blank" rel="noopener" data-cursor="hover" data-magnetic>GitHub ↗</a>
+          <a class="contact__btn" href="resume.html" data-cursor="hover" data-magnetic>Resume ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> Rakshith Reddy Aredla</p>
+      <p class="footer__note">Built by hand — no templates. The mini-me on the right waves at every section.</p>
     </div>
-  </section>
+  </footer>
 
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <p>© <span id="year">2026</span> Rakshith Reddy Aredla — built with real code, honest commits.</p>
-    <p class="footer__note">Designed & built by me · Hyderabad, India</p>
-  </div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="js/data.js"></script>
-<script src="js/avatar.js"></script>
-<script src="js/portrait.js"></script>
-<script src="js/animations.js"></script>
+  <!-- ============ SCRIPTS ============ -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/portrait.js"></script>
+  <script src="js/mini-me.js"></script>
 </body>
 </html>

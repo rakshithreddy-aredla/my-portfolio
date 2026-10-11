@@ -546,6 +546,51 @@ body.cursor--hover .cursor-ring {
 }
 .skills__cloud span.hot { color: var(--ember); opacity: 1; }
 
+/* ---------- Sculpture ---------- */
+.sculpture-section {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 55%, var(--bg) 100%);
+}
+.sculpture__stage {
+  position: relative;
+  height: 560px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 110%, var(--glow), transparent 60%),
+    radial-gradient(circle at 50% 20%, rgba(124, 92, 255, 0.06), transparent 55%),
+    var(--bg-2);
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out);
+  touch-action: pan-y;
+}
+#sculpture-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sculpture__hint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(23, 20, 18, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  padding: 7px 16px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
 /* ---------- Journey / timeline ---------- */
 .journey { background: var(--bg); }
 .timeline { position: relative; max-width: 720px; }
@@ -598,6 +643,59 @@ body.cursor--hover .cursor-ring {
 /* ---------- Reveal base ---------- */
 .reveal { opacity: 0; }
 body.preloader--done .reveal { opacity: 1; }
+/* IntersectionObserver fallback (animations.js flips .is-in; GSAP owns
+   inline styles when present, so this only matters without GSAP) */
+html.io-reveal .reveal { transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+html.io-reveal .reveal.is-in { opacity: 1; }
+
+/* ---------- Scroll progress ---------- */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  z-index: 2000; pointer-events: none;
+  background: linear-gradient(90deg, var(--accent), var(--ember));
+  box-shadow: 0 0 12px var(--glow);
+}
+
+/* ---------- Mini-Me rail (the 3D companion) ---------- */
+.mini-me-rail {
+  position: fixed; right: 0; top: 0; height: 100vh; width: 128px;
+  z-index: 900; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  pointer-events: none;
+  border-left: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(11, 9, 8, 0.62), rgba(11, 9, 8, 0.18) 40%, rgba(11, 9, 8, 0.55));
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.mini-me-progress {
+  position: absolute; left: 12px; top: 20vh; height: 60vh; width: 2px;
+  background: var(--line-strong); border-radius: 999px; overflow: hidden;
+}
+.mini-me-progress__fill {
+  display: block; width: 100%; height: 0;
+  background: linear-gradient(180deg, var(--accent), var(--ember));
+  box-shadow: 0 0 12px var(--glow);
+}
+#mini-me-canvas { width: 110px; height: 260px; display: block; pointer-events: none; }
+.mini-me-bubble {
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em;
+  line-height: 1.45; color: var(--ink-soft); text-align: center;
+  background: rgba(23, 20, 18, 0.8);
+  border: 1px solid var(--line-strong); border-radius: 10px;
+  padding: 6px 10px; max-width: 114px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+.mini-me-bubble.is-visible { opacity: 1; transform: translateY(0); }
+@media (min-width: 1100px) {
+  body { padding-right: 116px; }
+  .nav { padding-right: calc(clamp(20px, 4vw, 48px) + 112px); }
+}
+@media (max-width: 1099px) {
+  .mini-me-rail { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mini-me-bubble { transition: none; }
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
@@ -620,6 +718,7 @@ body.preloader--done .reveal { opacity: 1; }
   .contact__links { flex-direction: column; align-items: center; }
   .contact__btn { width: 100%; justify-content: center; }
   .hero__avatar { height: 52vh; min-height: 320px; }
+  .sculpture__stage { height: 400px; }
   .about__photo { width: 180px; height: 180px; }
 }
 
