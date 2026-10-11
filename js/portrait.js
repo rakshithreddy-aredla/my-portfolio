@@ -91,7 +91,7 @@
         spark.style.height = '8px';
         spark.style.borderRadius = '50%';
         spark.style.background = '#E8B44A';
-        spark.style.boxShadow = '0 0 8px rgba(232,180,74,0.9)';
+        spark.style.boxShadow = '0 0 8px rgba(34,211,238,0.9)';
         spark.style.pointerEvents = 'none';
         spark.style.willChange = 'transform, opacity';
 

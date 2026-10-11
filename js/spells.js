@@ -151,7 +151,7 @@
     if (!ctx) return;
 
     var parts = [];
-    var colors = ["#7C5CFF", "#E8B34B", "#F4F1EC", "#9F7DFF", "#E8954B"];
+    var colors = ["#22D3EE", "#38BDF8", "#EAF2F8", "#818CF8", "#67E8F9"];
     for (var i = 0; i < 90; i++) {
       var angle = Math.random() * Math.PI * 2;
       var speed = 4 + Math.random() * 9;

@@ -139,7 +139,7 @@
   function addGlowDiscs(parent) {
     var discGeo = new THREE.CircleGeometry(0.55, 40);
     var discMat = new THREE.MeshBasicMaterial({
-      color: 0x7c5cff, transparent: true, opacity: 0.35, side: THREE.DoubleSide
+      color: 0x22d3ee, transparent: true, opacity: 0.35, side: THREE.DoubleSide
     });
     var disc = new THREE.Mesh(discGeo, discMat);
     disc.rotation.x = -Math.PI / 2;
@@ -149,7 +149,7 @@
 
     var innerGeo = new THREE.CircleGeometry(0.28, 32);
     var innerMat = new THREE.MeshBasicMaterial({
-      color: 0xe8b34b, transparent: true, opacity: 0.5, side: THREE.DoubleSide
+      color: 0x38bdf8, transparent: true, opacity: 0.5, side: THREE.DoubleSide
     });
     var inner = new THREE.Mesh(innerGeo, innerMat);
     inner.rotation.x = -Math.PI / 2;
@@ -194,7 +194,7 @@
     scene.add(model);
 
     var skin = new THREE.MeshStandardMaterial({ color: 0xe8b48c, roughness: 0.6 });
-    var jacket = new THREE.MeshStandardMaterial({ color: 0x7c5cff, roughness: 0.5 });
+    var jacket = new THREE.MeshStandardMaterial({ color: 0x0EA5E9, roughness: 0.5 });
     var hairMat = new THREE.MeshStandardMaterial({ color: 0x1a1210, roughness: 0.8 });
     var white = new THREE.MeshBasicMaterial({ color: 0xffffff });
     var dark = new THREE.MeshBasicMaterial({ color: 0x14100e });
@@ -312,8 +312,8 @@
 
     scene.add(new THREE.AmbientLight(0x4a4460, 0.9));
     var key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(2, 3, 4); scene.add(key);
-    var rim = new THREE.PointLight(0x7c5cff, 1.4, 12); rim.position.set(-2, 2, -2); scene.add(rim);
-    var gold = new THREE.PointLight(0xe8b34b, 0.6, 8); gold.position.set(0, 0.6, 2); scene.add(gold);
+    var rim = new THREE.PointLight(0x22d3ee, 1.4, 12); rim.position.set(-2, 2, -2); scene.add(rim);
+    var gold = new THREE.PointLight(0x38bdf8, 0.6, 8); gold.position.set(0, 0.6, 2); scene.add(gold);
     onResize();
     return true;
   }
