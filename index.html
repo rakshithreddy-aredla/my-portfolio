@@ -41,11 +41,12 @@
   <nav class="nav" aria-label="Main">
     <a class="nav__logo" href="#home" data-cursor="hover">Rakshith<span class="nav__logo-dot">.</span></a>
     <div class="nav__links">
-      <a href="#about" data-cursor="hover">About</a>
-      <a href="#projects" data-cursor="hover">Work</a>
-      <a href="#skills" data-cursor="hover">Skills</a>
-      <a href="#journey" data-cursor="hover">Journey</a>
-      <a href="#contact" data-cursor="hover">Contact</a>
+      <a href="#about" data-cursor="hover" data-scramble>About</a>
+      <a href="#projects" data-cursor="hover" data-scramble>Work</a>
+      <a href="#skills" data-cursor="hover" data-scramble>Skills</a>
+      <a href="#journey" data-cursor="hover" data-scramble>Journey</a>
+      <a href="#contact" data-cursor="hover" data-scramble>Contact</a>
+      <button class="nav__key" id="palette-open" aria-label="Open command palette" data-cursor="hover">Ctrl K</button>
       <a class="nav__cta" href="resume.html" data-cursor="hover">Resume ↗</a>
     </div>
   </nav>
@@ -167,7 +168,8 @@
         <h2 class="contact__title reveal">Let's build<br /><em>something.</em></h2>
         <p class="contact__sub reveal" data-delay="0.08">Open to full-time roles, internships and hackathon teams. The fastest way to reach me is email.</p>
         <div class="contact__links reveal" data-delay="0.16">
-          <a class="contact__btn" href="mailto:rakshithreddy.aredla@gmail.com" data-cursor="hover" data-magnetic>Email ↗</a>
+          <a class="contact__btn" href="mailto:rakshithreddy.aredla@gmail.com" data-cursor="hover" data-magnetic data-spell="confetti">Email ↗</a>
+          <button class="contact__btn contact__btn--copy" data-spell="copy-email" data-cursor="hover" data-magnetic>Copy email</button>
           <a class="contact__btn" href="https://www.linkedin.com/in/aredla-rakshith/" target="_blank" rel="noopener" data-cursor="hover" data-magnetic>LinkedIn ↗</a>
           <a class="contact__btn" href="https://github.com/rakshithreddy-aredla" target="_blank" rel="noopener" data-cursor="hover" data-magnetic>GitHub ↗</a>
           <a class="contact__btn" href="resume.html" data-cursor="hover" data-magnetic>Resume ↗</a>
@@ -185,15 +187,19 @@
   </footer>
 
   <!-- ============ SCRIPTS ============
-       GSAP: deferred, integrity-pinned. Three.js + GLTFLoader are NOT loaded
-       here — js/mini-me.js injects them (integrity-pinned) only on desktop
-       viewports, so mobile never downloads ~700KB of Three.js for a rail
-       it cannot see. -->
+       GSAP + Lenis: deferred, integrity-pinned. Three.js + GLTFLoader are NOT
+       loaded here — js/mini-me.js injects them (integrity-pinned) only on
+       desktop viewports, so mobile never downloads ~700KB of Three.js for a
+       rail it cannot see. js/spells.js adds the micro-interaction layer
+       (scramble text, spotlight cards, count-up, command palette, confetti)
+       modelled on motion.dev / lab.xevrion.dev patterns. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
   <script defer src="js/data.js"></script>
   <script defer src="js/animations.js"></script>
   <script defer src="js/portrait.js"></script>
   <script defer src="js/mini-me.js"></script>
+  <script defer src="js/spells.js"></script>
 </body>
 </html>

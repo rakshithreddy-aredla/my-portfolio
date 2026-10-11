@@ -567,6 +567,110 @@ body.preloader--done .reveal { opacity: 1; }
 html.io-reveal .reveal { transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
 html.io-reveal .reveal.is-in { opacity: 1; }
 
+/* ---------- Spells: spotlight cards (the cursor is a lamp) ---------- */
+.project-card, .more-card, .stat { position: relative; }
+.project-card::after, .more-card::after, .stat::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(124, 92, 255, 0.14), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+.project-card:hover::after, .more-card:hover::after, .stat:hover::after { opacity: 1; }
+
+/* ---------- Spells: command palette (Ctrl/⌘ + K) ---------- */
+.palette { position: fixed; inset: 0; z-index: 3000; display: none; }
+.palette.is-open { display: block; }
+.palette__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(11, 9, 8, 0.72);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.palette__panel {
+  position: absolute; top: 18vh; left: 50%; transform: translateX(-50%);
+  width: min(560px, 92vw);
+  background: rgba(23, 20, 18, 0.94);
+  border: 1px solid var(--line-strong); border-radius: 16px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 60px var(--glow);
+  overflow: hidden;
+}
+.palette__head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line);
+}
+.palette__dot {
+  width: 8px; height: 8px; border-radius: 50%; flex: none;
+  background: var(--accent); box-shadow: 0 0 12px var(--glow);
+}
+.palette__input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--ink); font-family: var(--font-body); font-size: 0.95rem;
+}
+.palette__input::placeholder { color: var(--muted); }
+.palette__esc {
+  font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px;
+}
+.palette__list { list-style: none; margin: 0; padding: 8px; max-height: 46vh; overflow: auto; }
+.palette__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 11px 12px; border-radius: 10px; cursor: pointer;
+  font-size: 0.92rem; color: var(--ink-soft);
+}
+.palette__item em {
+  font-style: normal; font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--muted); max-width: 55%; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+.palette__item.is-active { background: rgba(124, 92, 255, 0.14); color: var(--ink); }
+.palette__empty {
+  padding: 18px; text-align: center;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+}
+
+/* ---------- Spells: confetti canvas + copy toast ---------- */
+.confetti-canvas {
+  position: fixed; inset: 0; z-index: 4000; pointer-events: none;
+}
+.copy-toast {
+  position: fixed; bottom: 28px; left: 50%; z-index: 4000;
+  transform: translate(-50%, 0);
+  background: rgba(23, 20, 18, 0.92);
+  border: 1px solid var(--line-strong); color: var(--ink);
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em;
+  padding: 10px 18px; border-radius: 999px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: toastIn 0.3s var(--ease-out) forwards;
+}
+.copy-toast.is-out {
+  opacity: 0; transform: translate(-50%, 8px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---------- Spells: nav keycap ---------- */
+.nav__key {
+  font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em;
+  color: var(--muted); background: rgba(23, 20, 18, 0.6);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 6px 10px; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav__key:hover { color: var(--ink); border-color: var(--accent); }
+.contact__btn--copy {
+  font-family: var(--font-body); cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy-toast { animation: none; opacity: 1; transform: translate(-50%, 0); }
+  .project-card::after, .more-card::after, .stat::after { transition: none; }
+}
+
 /* ---------- Scroll progress ---------- */
 #scroll-progress {
   position: fixed; top: 0; left: 0; height: 3px; width: 0;
