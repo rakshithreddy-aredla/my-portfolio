@@ -255,35 +255,8 @@ body.cursor--hover .cursor-ring {
   background: rgba(23, 20, 18, 0.6); padding: 7px 14px; border-radius: 999px;
 }
 
-.hero__avatar {
-  position: relative; height: min(70vh, 620px); min-height: 420px;
-  display: flex; align-items: center; justify-content: center;
-}
-.hero__avatar-glow {
-  position: absolute; width: 120%; height: 120%; left: -10%; top: -10%;
-  background: radial-gradient(circle at 50% 45%, var(--glow), rgba(232, 180, 74, 0.1) 45%, transparent 70%);
-  filter: blur(14px); pointer-events: none;
-}
-.hero__avatar-ring {
-  position: absolute; width: 130%; height: 130%; top: -15%; left: -15%;
-  border-radius: 50%; border: 1px solid var(--line); pointer-events: none;
-  animation: spin 26s linear infinite;
-}
-.hero__avatar-ring::after {
-  content: ""; position: absolute; top: 50%; left: 0; width: 10px; height: 10px;
-  border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 16px var(--glow); transform: translateY(-50%);
-}
+/* The rotating ring is shared by the hero portrait and about photo. */
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-#avatar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.hero__avatar-caption {
-  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
-  white-space: nowrap; font-size: 0.82rem; font-weight: 500; color: var(--ink-soft);
-  background: rgba(23, 20, 18, 0.72);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  border: 1px solid var(--line-strong); padding: 8px 18px; border-radius: 999px;
-  opacity: 0; transition: opacity 0.6s; box-shadow: var(--shadow-soft);
-}
 
 .hero__portrait {
   position: relative;
@@ -536,60 +509,6 @@ body.cursor--hover .cursor-ring {
   background: var(--accent); color: #fff; border-color: var(--accent);
   transform: translateY(-3px); box-shadow: 0 8px 28px var(--glow);
 }
-.skills__cloud {
-  margin-top: 60px; height: 320px; position: relative;
-  border: 1px dashed var(--line); border-radius: var(--radius); overflow: hidden;
-}
-.skills__cloud span {
-  position: absolute; font-family: var(--font-display); color: var(--ink-soft);
-  opacity: 0.5; transition: color 0.3s, opacity 0.3s; pointer-events: none;
-}
-.skills__cloud span.hot { color: var(--ember); opacity: 1; }
-
-/* ---------- Sculpture ---------- */
-.sculpture-section {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 55%, var(--bg) 100%);
-}
-.sculpture__stage {
-  position: relative;
-  height: 560px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 110%, var(--glow), transparent 60%),
-    radial-gradient(circle at 50% 20%, rgba(124, 92, 255, 0.06), transparent 55%),
-    var(--bg-2);
-  opacity: 0;
-  transition: opacity 0.9s var(--ease-out);
-  touch-action: pan-y;
-}
-#sculpture-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.sculpture__hint {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: rgba(23, 20, 18, 0.6);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--line);
-  padding: 7px 16px;
-  border-radius: 999px;
-  pointer-events: none;
-}
 
 /* ---------- Journey / timeline ---------- */
 .journey { background: var(--bg); }
@@ -664,7 +583,6 @@ html.io-reveal .reveal.is-in { opacity: 1; }
   pointer-events: none;
   border-left: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(11, 9, 8, 0.62), rgba(11, 9, 8, 0.18) 40%, rgba(11, 9, 8, 0.55));
-  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
 }
 .mini-me-progress {
   position: absolute; left: 12px; top: 20vh; height: 60vh; width: 2px;
@@ -703,7 +621,6 @@ html.io-reveal .reveal.is-in { opacity: 1; }
   .hero__content { max-width: none; }
   .hero__tagline { margin-left: auto; margin-right: auto; }
   .hero__ctas { justify-content: center; }
-  .hero__avatar { height: 60vh; min-height: 380px; }
   .about__grid { grid-template-columns: 1fr; gap: 48px; }
   .project-card { grid-template-columns: 1fr; }
   .project-card--alt .project__visual { order: 0; }
@@ -717,15 +634,13 @@ html.io-reveal .reveal.is-in { opacity: 1; }
   .stat { padding: 18px 14px; }
   .contact__links { flex-direction: column; align-items: center; }
   .contact__btn { width: 100%; justify-content: center; }
-  .hero__avatar { height: 52vh; min-height: 320px; }
-  .sculpture__stage { height: 400px; }
   .about__photo { width: 180px; height: 180px; }
 }
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee__track, .hero__scroll-line::after, .atmosphere__orb, .hero__avatar-ring, .about__photo-ring { animation: none; }
+  .marquee__track, .hero__scroll-line::after, .atmosphere__orb, .about__photo-ring { animation: none; }
   .project-card, .more-card, .stat, .skill, .btn, .contact__btn { transition: none; }
   .reveal { opacity: 1 !important; }
 }

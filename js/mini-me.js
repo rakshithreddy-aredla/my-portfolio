@@ -12,6 +12,11 @@
    MODEL: assets/avatar.glb (Blender-built full-body character, node names
    head / armL / armR / pupilL / pupilR). If the GLB fails, a procedural
    chibi is built with the exact same behaviors — the site never breaks.
+
+   LOAD POLICY (perf review b9324a5 fix): Three.js + GLTFLoader (~700KB) are
+   NOT loaded by index.html. This module injects them — integrity-pinned —
+   only on desktop viewports (>= 1100px, where the rail is visible) and only
+   for non-reduced-motion users. Mobile never downloads the 3.9MB GLB.
    ========================================================================== */
 (function () {
   "use strict";
@@ -43,6 +48,12 @@
   var cursor = { x: 0, y: 0, tx: 0, ty: 0 };
   var activeSection = "home";
   var sectionBits = {};
+  var lastPointer = 0;     // Date.now() of last pointermove
+  var lastRender = 0;      // for idle throttling
+  var frameCount = 0;
+  var lastProgress = -1;   // cached progress (scroll handler owns writes)
+  var docDenom = 1;        // scrollable height, refreshed on scroll/resize
+  var booting = false;
 
   var SECTIONS = ["home", "about", "projects", "skills", "journey", "contact"];
   var BUBBLES = {
@@ -54,8 +65,24 @@
     contact: "Say hi!"
   };
 
+  var CDN = [
+    {
+      url: "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js",
+      integrity: "sha384-vV17nr/rMaJqmeZkFUzXLpHdQ+ME5QHKdydaqqN+3Ga39RJlNrTatJxHwGV4ml2C"
+    },
+    {
+      url: "https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js",
+      integrity: "sha384-FassWWYNEPQsuRQm+59KIMcDetEc30bNyE9yfx16Ok8lvoowyH81LtrPmLWltJMh"
+    }
+  ];
+
   function lerp(a, b, t) { return a + (b - a) * t; }
   function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function railEnabled() {
+    try {
+      return window.matchMedia("(min-width: 1100px)").matches;
+    } catch (err) { return window.innerWidth >= 1100; }
+  }
 
   /* ---------- helpers ---------- */
 
@@ -219,7 +246,85 @@
     addGlowDiscs(model);
   }
 
+  function injectScript(spec, onLoad, onError) {
+    var s = document.createElement("script");
+    s.src = spec.url;
+    if (spec.integrity) {
+      s.integrity = spec.integrity;
+      s.crossOrigin = "anonymous";
+    }
+    s.onload = onLoad;
+    s.onerror = onError;
+    document.head.appendChild(s);
+  }
+
+  function loadThreeThenModel() {
+    if (booting) return;
+    booting = true;
+
+    var three = {
+      url: "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js",
+      integrity: "sha384-vV17nr/rMaJqmeZkFUzXLpHdQ+ME5QHKdydaqqN+3Ga39RJlNrTatJxHwGV4ml2C"
+    };
+    var loader = {
+      url: "https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js",
+      integrity: "sha384-FassWWYNEPQsuRQm+59KIMcDetEc30bNyE9yfx16Ok8lvoowyH81LtrPmLWltJMh"
+    };
+
+    injectScript(three, function () {
+      if (disposed) return;
+      injectScript(loader, function () {
+        if (disposed) return;
+        loadModel();
+      }, function () {
+        if (disposed) return;
+        window.console && console.warn("mini-me: GLTFLoader failed to load");
+        buildChibi();
+        window.__miniMeSource = "procedural";
+      });
+    }, function () {
+      if (disposed) return;
+      window.console && console.warn("mini-me: three.js failed to load, hiding rail");
+      rail.style.display = "none";
+      window.__miniMeSource = "none";
+      disposed = true;
+    });
+  }
+
+  /* Creates the WebGL renderer, scene, camera and lights — called once,
+     AFTER the dynamically injected three.js has executed. */
+  function setupRenderer() {
+    if (renderer) return true;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    } catch (err) {
+      rail.style.display = "none";
+      window.__miniMeSource = "none";
+      return false;
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x000000, 0);
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(35, 110 / 260, 0.1, 20);
+    camera.position.set(0, 0.9, 3.1);
+    camera.lookAt(0, 0.85, 0);
+
+    scene.add(new THREE.AmbientLight(0x4a4460, 0.9));
+    var key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(2, 3, 4); scene.add(key);
+    var rim = new THREE.PointLight(0x7c5cff, 1.4, 12); rim.position.set(-2, 2, -2); scene.add(rim);
+    var gold = new THREE.PointLight(0xe8b34b, 0.6, 8); gold.position.set(0, 0.6, 2); scene.add(gold);
+    onResize();
+    return true;
+  }
+
   function loadModel() {
+    if (!setupRenderer()) return;
+    if (typeof THREE === "undefined") {
+      buildChibi();
+      window.__miniMeSource = "procedural";
+      return;
+    }
     var gltfReady = typeof THREE.GLTFLoader !== "undefined";
     if (gltfReady) {
       new THREE.GLTFLoader().load(
@@ -244,23 +349,47 @@
     }
   }
 
+  /* ---------- scroll progress (scroll-driven, not render-driven) ---------- */
+
+  var scrollQueued = false;
+  function onScrollRaf() {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    window.requestAnimationFrame(function () {
+      scrollQueued = false;
+      var sy = window.scrollY || 0;
+      var denom = Math.max(1,
+        document.documentElement.scrollHeight - window.innerHeight);
+      var prog = clamp(sy / denom, 0, 1);
+      if (progressFill && Math.abs(prog - lastProgress) > 0.001) {
+        progressFill.style.height = (prog * 100).toFixed(1) + "%";
+        lastProgress = prog;
+      }
+    });
+  }
+
   /* ---------- animation loop ---------- */
 
   function frame(time) {
     if (disposed) return;
     raf = window.requestAnimationFrame(frame);
-    if (document.hidden || !railVisible || !model) return;
+    if (document.hidden || !railVisible || !model || !renderer) return;
 
     var t = time / 1000;
     var dt = Math.min(0.05, t - (prevTime || t));
     prevTime = t;
 
-    // scroll velocity (lerped) drives the walk bob + forward lean
-    var sy = window.scrollY || 0;
-    var denom = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    var prog = clamp(sy / denom, 0, 1);
-    if (progressFill) progressFill.style.height = (prog * 100).toFixed(1) + "%";
+    /* Idle throttle: while the user is reading (no scroll, no pointer,
+       no wave) render at ~10fps instead of 60 — the scene barely moves
+       (disc pulse + breathing), so nothing is visually lost. */
+    var pointerIdle = (time - lastPointer) > 2000;
+    var idle = scrollVel < 0.02 && waveT < 0 && pointerIdle;
+    if (idle && (t - lastRender) < 0.1) {
+      return; // skip this frame's math + render entirely
+    }
+    lastRender = t;
 
+    var sy = window.scrollY || 0;
     var rawVel = Math.abs(sy - prevScroll) / Math.max(1, window.innerHeight) / Math.max(dt, 0.001);
     prevScroll = sy;
     scrollVel = lerp(scrollVel, clamp(rawVel, 0, 1.4), 0.12);
@@ -280,12 +409,12 @@
     cursor.x = lerp(cursor.x, cursor.tx, 0.1);
     cursor.y = lerp(cursor.y, cursor.ty, 0.1);
     if (head) {
-      head.rotation.y = lerp(head.rotation.y, cursor.x * 0.5, 0.12);
-      head.rotation.x = lerp(head.rotation.x, -cursor.y * 0.22, 0.12);
+      head.rotation.y = lerp(head.rotation.y, cursor.tx * 0.5, 0.12);
+      head.rotation.x = lerp(head.rotation.x, -cursor.ty * 0.22, 0.12);
     }
-    if (pupilL) { pupilL.position.x = cursor.x * 0.03; pupilL.position.y = cursor.y * 0.1; }
-    if (pupilR) { pupilR.position.x = cursor.x * 0.03; pupilR.position.y = cursor.y * 0.1; }
-    model.rotation.y = baseRotY + cursor.x * 0.12;
+    if (pupilL) { pupilL.position.x = cursor.tx * 0.03; pupilL.position.y = cursor.ty * 0.1; }
+    if (pupilR) { pupilR.position.x = cursor.tx * 0.03; pupilR.position.y = cursor.ty * 0.1; }
+    model.rotation.y = baseRotY + cursor.tx * 0.12;
 
     // wave: 1.4s sine raise on armR
     if (waveT >= 0 && armR) {
@@ -300,13 +429,16 @@
     var ps = 1 + 0.06 * Math.sin(discPulse * 3);
     for (var i = 0; i < discs.length; i++) discs[i].scale.set(ps, ps, 1);
 
+    lastRender = t;
     renderer.render(scene, camera);
   }
 
   /* ---------- input ---------- */
 
+  var lastPointer = 0;
   var pointerPending = false;
   function onPointerMove(e) {
+    lastPointer = performance.now();
     if (pointerPending) return;
     pointerPending = true;
     window.requestAnimationFrame(function () {
@@ -339,33 +471,24 @@
         window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     } catch (err) { reducedMotion = false; }
 
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    } catch (err) {
+    /* LOAD POLICY (review fix): the rail is decorative and display:none
+       below 1100px — on mobile/tablet (and for reduced-motion users) skip
+       everything: no WebGL context, no ~700KB Three.js, no 3.9MB GLB. */
+    if (reducedMotion || !railEnabled() || canvas.clientWidth === 0) {
       rail.style.display = "none";
       window.__miniMeSource = "none";
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setClearColor(0x000000, 0);
 
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(35, 110 / 260, 0.1, 20);
-    camera.position.set(0, 0.9, 3.1);
-    camera.lookAt(0, 0.85, 0);
-
-    scene.add(new THREE.AmbientLight(0x4a4460, 0.9));
-    var key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(2, 3, 4); scene.add(key);
-    var rim = new THREE.PointLight(0x7c5cff, 1.4, 12); rim.position.set(-2, 2, -2); scene.add(rim);
-    var gold = new THREE.PointLight(0xe8b34b, 0.6, 8); gold.position.set(0, 0.6, 2); scene.add(gold);
-
-    loadModel();
-    onResize();
+    /* The renderer/scene are created inside loadModel() — only after the
+       dynamically injected three.js has executed. DOM listeners are safe
+       to attach now. */
     window.addEventListener("resize", onResize);
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScrollRaf, { passive: true });
 
-    if (!reducedMotion) {
-      window.addEventListener("pointermove", onPointerMove, { passive: true });
-    }
+    // inject three.js + GLTFLoader (integrity-pinned), then the GLB model
+    loadThreeThenModel();
 
     // render only while the rail is on screen
     try {
@@ -376,18 +499,7 @@
 
     trackSections();
 
-    if (reducedMotion) {
-      // one settled frame, no loop
-      var settle = window.setInterval(function () {
-        if (model) {
-          renderer.render(scene, camera);
-          window.clearInterval(settle);
-        }
-      }, 250);
-      window.setTimeout(function () { window.clearInterval(settle); }, 4000);
-    } else {
-      raf = window.requestAnimationFrame(frame);
-    }
+    raf = window.requestAnimationFrame(frame);
   }
 
   window.MINI_ME = { init: init };

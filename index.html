@@ -184,14 +184,16 @@
     </div>
   </footer>
 
-  <!-- ============ SCRIPTS ============ -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/portrait.js"></script>
-  <script src="js/mini-me.js"></script>
+  <!-- ============ SCRIPTS ============
+       GSAP: deferred, integrity-pinned. Three.js + GLTFLoader are NOT loaded
+       here — js/mini-me.js injects them (integrity-pinned) only on desktop
+       viewports, so mobile never downloads ~700KB of Three.js for a rail
+       it cannot see. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/animations.js"></script>
+  <script defer src="js/portrait.js"></script>
+  <script defer src="js/mini-me.js"></script>
 </body>
 </html>
